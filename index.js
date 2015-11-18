@@ -8,7 +8,14 @@ var stg = new SimpleTelegram()
 var tgBinFile  = "/app/vendor/tg-1.0.5.1/bin/telegram-cli"
 var tgKeysFile = "/app/vendor/tg-1.0.5.1/tg-server.pub"
 
-var rest = require('restler');
+var rest = require('restler')
+
+var bodyParser = require('body-parser')
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
 
 // Creating simpleTelegram object
 stg.create(tgBinFile, tgKeysFile)
