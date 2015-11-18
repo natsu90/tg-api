@@ -8,7 +8,7 @@ var stg = new SimpleTelegram()
 var tgBinFile  = "telegram-cli"
 var tgKeysFile = "vendor/tg-1.0.5.1/tg-server.pub"
 
-var rest = require('./restler');
+var rest = require('restler');
 
 // Creating simpleTelegram object
 stg.create(tgBinFile, tgKeysFile)
