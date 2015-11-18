@@ -7,7 +7,9 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "express": "^4.13.3"
+    "express": "^4.13.3",
+    "simple-telegram": "dev-master",
+    "restler": "^3.1"
   },
   "engines": {
     "node": "4.0.0"
