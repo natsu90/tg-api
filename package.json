@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "express": "^4.13.3",
-    "simple-telegram": "dev-master",
+    "simple-telegram": "*",
     "restler": "^3.1"
   },
   "engines": {
