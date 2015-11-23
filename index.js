@@ -39,7 +39,7 @@ stg.getProcess().stdout.on("receivedMessage", function(msg) {
     console.log("\nReceived message")
     console.dir(msg)
     if( typeof process.env.WEBHOOK != 'undefined')
-    	rest.post(process.env.WEBHOOK, {data: msg})
+    	rest.post(process.env.WEBHOOK, {data: {user: msg.caller, message: msg.content}})
 })
 
 app.listen(app.get('port'), function() {
