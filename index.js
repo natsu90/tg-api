@@ -5,8 +5,8 @@ var SimpleTelegram = require('simple-telegram')
 var stg = new SimpleTelegram()
 
 // Replace next values to your own paths
-var tgBinFile  = "../tg/bin/telegram-cli"
-var tgKeysFile = "../tg/tg-server.pub"
+var tgBinFile  = "/var/www/tg/bin/telegram-cli"
+var tgKeysFile = "/var/www/tg/tg-server.pub"
 
 var rest = require('restler')
 
