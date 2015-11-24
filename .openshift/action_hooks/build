@@ -1,0 +1,11 @@
+if [ -d "$OPENSHIFT_DATA_DIR/tg" ] 
+ then
+        echo "Telegram already downloaded" 
+ else
+        cd $OPENSHIFT_DATA_DIR
+        git clone --recursive https://github.com/vysheng/tg.git && cd tg
+        ./configure --disable-libconfig --disable-liblua --disable-json
+        make
+	export TELEGRAM_HOME="$OPENSHIFT_DATA_DIR/tg"
+        echo "Login to Telegram CLI to start using"
+fi
