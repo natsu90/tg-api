@@ -10,7 +10,7 @@
 		<li>Create a new NodeJS application on Openshift with following Git URL, https://github.com/natsu90/tg-api.git, or <a target="_blank" href="https://openshift.redhat.com/app/console/application_type/custom?&cartridges[]=nodejs-0.10&initial_git_url=https://github.com/natsu90/tg-api.git&name=telegram">click here</a></li>
 		<li>SSH to your OpenShift application; ssh your-application-id@your-application-url e.g ssh 565fcf2c89f57576490001c1@telegram-namialus.rhcloud.com</li>
 		<li>Log into Telegram CLI for first time, $TELEGRAM_HOME/bin/telegram-cli -k $TELEGRAM_HOME/tg-server.pub</li>
-		<li>While in SSH session, set your environment variables of WEBHOOK and API_KEY (default to OPENSHIFT_SECRET_TOKEN); export WEHBHOOK=http://requestb.in/blablabla</li>
+		<li>While in SSH session, set your environment variables of WEBHOOK and API_KEY (default to OPENSHIFT_SECRET_TOKEN); echo "http://requestb.in/blablabla" > $OPENSHIFT_HOMEDIR/.env/user_vars/WEBHOOK</li>
 		<li>Restart application from Openshift account</li>
 	</ol>
 </body>
