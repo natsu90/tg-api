@@ -32,7 +32,7 @@ app.get('/', function(req, res) {
 var api_key = process.env.API_KEY || process.env.OPENSHIFT_SECRET_TOKEN || false;
 app.post('/api/v1/send', function(req, res) {
 	
-	if(typeof req.param.api_key !== 'undefined' && api_key && req.param.api_key != api_key)
+	if(typeof req.params.api_key !== 'undefined' && api_key && req.params.api_key != api_key)
 		return res.send('Not authorized')
 	stg.send(req.body.to, req.body.message)
 	res.send('OK')
