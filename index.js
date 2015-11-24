@@ -21,17 +21,18 @@ app.use(bodyParser.json())
 // Creating simpleTelegram object
 stg.create(tgBinFile, tgKeysFile, '-W')
 
-app.set('port', (process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 5000))
+app.set('port', (process.env.OPENSHIFT_NODEJS_PORT || 5000))
 app.set('ip', (process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1"));
 app.use(express.static(__dirname + '/public'))
 
-app.get('/', function(request, response) {
-  response.send('Hello World!')
+app.get('/', function(req, res) {
+	res.sendFile(__dirname + '/public/index.html')
 })
 
+var api_key = process.env.API_KEY || process.env.OPENSHIFT_SECRET_TOKEN || false;
 app.post('/api/v1/send', function(req, res) {
 	
-	if(typeof process.env.API_KEY !== 'undefined' && req.param.api_key != process.env.API_KEY)
+	if(typeof req.param.api_key !== 'undefined' && api_key && req.param.api_key != api_key)
 		return res.send('Not authorized')
 	stg.send(req.body.to, req.body.message)
 	res.send('OK')

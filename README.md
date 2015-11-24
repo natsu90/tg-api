@@ -1,38 +1,27 @@
-# node-js-sample
+# Telegram CLI API Wrapper
 
-A barebones Node.js app using [Express 4](http://expressjs.com/).
+A simple Telegram CLI API Wrapper to create your bot using your own mobile number.
 
 ## Running Locally
 
-Make sure you have [Node.js](http://nodejs.org/) and the [Heroku Toolbelt](https://toolbelt.heroku.com/) installed.
+Make sure you have [Node.js](http://nodejs.org/) and [Telegram CLI](https://github.com/vysheng/tg/) installed.
 
 ```sh
-git clone git@github.com:heroku/node-js-sample.git # or clone your own fork
-cd node-js-sample
+export TELEGRAM_HOME=/path/to/telegram/folder/
+
+git clone https://github.com/natsu90/tg-api.git # or clone your own fork
+cd tg-api
 npm install
 npm start
 ```
 
 Your app should now be running on [localhost:5000](http://localhost:5000/).
 
-## Deploying to Heroku
+## Deploying to OpenShift
 
-```
-heroku create
-git push heroku master
-heroku open
-```
+[![DEPLOY TO OpenShift](http://launch-shifter.rhcloud.com/launch/DEPLOY TO.svg)](https://openshift.redhat.com/app/console/application_type/custom?&cartridges[]=nodejs-0.10&initial_git_url=https://github.com/natsu90/tg-api.git&name=telegram)
 
-Alternatively, you can deploy your own copy of the app using the web-based flow:
-
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
-
-## Documentation
-
-For more information about using Node.js on Heroku, see these Dev Center articles:
-
-- [10 Habits of a Happy Node Hacker](https://blog.heroku.com/archives/2014/3/11/node-habits)
-- [Getting Started with Node.js on Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
-- [Heroku Node.js Support](https://devcenter.heroku.com/articles/nodejs-support)
-- [Node.js on Heroku](https://devcenter.heroku.com/categories/nodejs)
-- [Using WebSockets on Heroku with Node.js](https://devcenter.heroku.com/articles/node-websockets)
+* SSH to your app; `ssh your-openshift-account-id@your-application-url` e.g `ssh 565fcf2c89f57576490001c1@telegram-namialus.rhcloud.com`
+* Login for first time; `$TELEGRAM_HOME/bin/telegram-cli -k $TELEGRAM_HOME/tg-server.pub`
+* Set your env variable; `export WEBHOOK=http://your.webhook.url`
+* Restart
