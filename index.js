@@ -20,7 +20,8 @@ app.use(bodyParser.json())
 // Creating simpleTelegram object
 stg.create(tgBinFile, tgKeysFile, '-W')
 
-app.set('port', (process.env.OPENSHIFT_NODEJS_PORT || 5000))
+app.set('port', (process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 5000))
+app.set('ip', process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1");
 app.use(express.static(__dirname + '/public'))
 
 app.get('/', function(request, response) {
@@ -42,6 +43,6 @@ stg.getProcess().stdout.on("receivedMessage", function(msg) {
     	rest.post(process.env.WEBHOOK, {data: {user: msg.caller, message: msg.content}})
 })
 
-app.listen(app.get('port'), function() {
+app.listen(app.get('port'), app.get('ip'), function() {
   console.log("Node app is running at localhost:" + app.get('port'))
 })
