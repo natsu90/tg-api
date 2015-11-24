@@ -21,7 +21,7 @@ app.use(bodyParser.json())
 stg.create(tgBinFile, tgKeysFile, '-W')
 
 app.set('port', (process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 5000))
-app.set('ip', process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1");
+app.set('ip', (process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1"));
 app.use(express.static(__dirname + '/public'))
 
 app.get('/', function(request, response) {
