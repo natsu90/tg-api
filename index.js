@@ -31,7 +31,7 @@ app.get('/', function(request, response) {
 
 app.post('/api/v1/send', function(req, res) {
 	
-	if(typeof process.env.API_KEY != 'undefined' && req.param.api_key != process.env.API_KEY)
+	if(typeof process.env.API_KEY !== 'undefined' && req.param.api_key != process.env.API_KEY)
 		return res.send('Not authorized')
 	stg.send(req.body.to, req.body.message)
 	res.send('OK')
@@ -40,10 +40,10 @@ app.post('/api/v1/send', function(req, res) {
 stg.getProcess().stdout.on("receivedMessage", function(msg) {
     console.log("\nReceived message")
     console.dir(msg)
-    if( typeof process.env.WEBHOOK != 'undefined')
-    	rest.post(process.env.WEBHOOK, {data: {user: msg.caller, message: msg.content}})
+    if( typeof process.env.WEBHOOK !== 'undefined')
+    	rest.post(process.env.WEBHOOK, {data: {from: msg.caller, message: msg.content}})
 })
 
 app.listen(app.get('port'), app.get('ip'), function() {
-  console.log("Node app is running at localhost:" + app.get('port'))
+  console.log("Node app is running at "+ app.get('ip') +":" + app.get('port'))
 })
