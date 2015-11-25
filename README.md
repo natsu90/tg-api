@@ -32,3 +32,7 @@ Your app should now be running on [localhost:5000](http://localhost:5000/).
 - You would receive incoming message to your webhook URL with `from` & `message` parameter.
 
 - You can reply to the message with `POST` `/api/v1/send?api_key=supersecret`, with `to` (same as `from`) and `message` parameter.
+
+## Demo
+
+Send a message contains `help`, `sorry`, or `trouble` to `6017-279-2409`, you would get a reply.
