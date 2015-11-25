@@ -21,6 +21,28 @@ app.use(bodyParser.json())
 // Creating simpleTelegram object
 stg.create(tgBinFile, tgKeysFile, '-W')
 
+// overwrite incoming message because there's a bug
+// https://github.com/GuillermoPena/simple-telegram/issues/5
+stg.getProcess().stdout.off('data')
+stg.getProcess().stdout.on('data', function(message) {
+
+	if (message.toString().indexOf(">>>") <= -1) return null
+
+    // Extracting caller
+    message = message.split('\n')[0]
+    var slicesA = message.split('>>>')
+    var slicesB = slicesA[0].split(']')
+    var caller  = slicesA[0].replace(slicesB[0],"").replace(']','')
+	var content = (slicesA.length > 1) ? slicesA[1] : null
+
+	parsedMessage = {'from': caller.trim(), 'message': content.trim()}
+
+	console.log(parsedMessage)
+
+	if( typeof process.env.WEBHOOK !== 'undefined')
+    	rest.post(process.env.WEBHOOK, {data: parsedMessage})
+})
+
 app.set('port', (process.env.OPENSHIFT_NODEJS_PORT || 5000))
 app.set('ip', (process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1"));
 app.use(express.static(__dirname + '/public'))
@@ -47,13 +69,6 @@ app.post('/webhook_sample', function(req, res) {
 			{data: {to: req.body.from, message: 'No worries mate, be careful next time.'}});
 	}
 	res.send('OK')
-})
-
-stg.getProcess().stdout.on("receivedMessage", function(msg) {
-    console.log("\nReceived message")
-    console.dir(msg)
-    if( typeof process.env.WEBHOOK !== 'undefined')
-    	rest.post(process.env.WEBHOOK, {data: {from: msg.caller, message: msg.content}})
 })
 
 app.listen(app.get('port'), app.get('ip'), function() {
