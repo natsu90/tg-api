@@ -33,9 +33,19 @@ var api_key = process.env.API_KEY || process.env.OPENSHIFT_SECRET_TOKEN || false
 app.post('/api/v1/send', function(req, res) {
 	
 	if(typeof req.query.api_key == 'undefined' || (api_key && req.query.api_key != api_key))
-		return res.send('Not authorized')
+		return res.send(401, 'Not authorized')
 	stg.send(req.body.to, req.body.message)
 	res.send('OK')
+})
+
+app.post('/webhook_sample', function(req, res) {
+
+	// http://www.businessinsider.my/programmer-automates-his-job-2015-11/
+	if( ['help', 'trouble', 'sorry']
+		.filter(function(str) { return req.body.message.toLowerCase().indexOf(str) > -1 }).length > 0 ) {
+		rest.post(process.env.OPENSHIFT_APP_DNS +'/api/v1/send?api_key='+ api_key, 
+			{data: {to: req.body.from, message: 'No worries mate, be careful next time.'}});
+	}
 })
 
 stg.getProcess().stdout.on("receivedMessage", function(msg) {
