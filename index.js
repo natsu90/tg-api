@@ -46,6 +46,7 @@ app.post('/webhook_sample', function(req, res) {
 		rest.post(process.env.OPENSHIFT_APP_DNS +'/api/v1/send?api_key='+ api_key, 
 			{data: {to: req.body.from, message: 'No worries mate, be careful next time.'}});
 	}
+	res.send('OK');
 })
 
 stg.getProcess().stdout.on("receivedMessage", function(msg) {
