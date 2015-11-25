@@ -39,7 +39,7 @@ app.post('/api/v1/send', function(req, res) {
 })
 
 app.post('/webhook_sample', function(req, res) {
-	console.log('webhook sample', reg.body, req.params)
+	console.log('webhook sample', req.body, req.params)
 	// http://www.businessinsider.my/programmer-automates-his-job-2015-11/
 	if( ['help', 'trouble', 'sorry']
 		.filter(function(str) { return req.body.message.toLowerCase().indexOf(str) > -1 }).length > 0 ) { console.log('sending reply');
