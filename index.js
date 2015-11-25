@@ -23,7 +23,7 @@ stg.create(tgBinFile, tgKeysFile, '-W')
 
 // overwrite incoming message because there's a bug
 // https://github.com/GuillermoPena/simple-telegram/issues/5
-stg.getProcess().stdout.off('data')
+stg.getProcess().stdout.removeListener('data')
 stg.getProcess().stdout.on('data', function(message) {
 
 	if (message.toString().indexOf(">>>") <= -1) return null
